@@ -1,0 +1,8 @@
+i:hover{
+	cursor:pointer;
+	color:blue;
+}
+
+form[name='mycsv']{
+	display:none;
+}

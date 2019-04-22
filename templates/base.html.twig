@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Carnet!{% endblock %}</title>
+        {% block stylesheets %}
+			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ asset('lib/bootstrap/bootstrap.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('style/style.css') }}">
+		{% endblock %}
+    </head>
+    <body>
+		
+		<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+		  <a class="navbar-brand" href="/">Carnet</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				{% if app.user is not null %}
+			  <li class="nav-item">
+				<a class="nav-link" href="{{ path('app_profil_index') }}">Profil</a>
+			  </li>
+			  {% endif %}
+			  <li class="nav-item">
+				<a class="nav-link" href="#">Link</a>
+			  </li>
+			</ul>
+				{% if app.user is null %}
+				<a type="button" class="btn btn-link" href="/connexion">
+					Connexion
+				</a>
+				{% else %}
+				
+				<a type="button" class="btn btn-link" href="/deconnexion">
+					<span>Bonjour {{ app.user.firstname }}</span>&nbsp;&nbsp;Déconnexion
+				</a>
+				{% endif %}
+			</div>
+		</nav>
+		
+		
+		
+		<div class="container">
+            {% for type, messages in app.session.flashBag.all %}
+                {% for message in messages %}
+                    {% if type == 'error' %}
+                        {% set type = 'danger' %}
+                    {% endif %}
+                    <div class="alert alert-{{ type }} mt-2">
+                        {{ message|raw }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+		</div>
+
+        {% block body %}{% endblock %}
+        {% block javascripts %}
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+            <script src="{{ asset('js/script.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

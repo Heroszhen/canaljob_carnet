@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container-fluid mt-4">
+	<div class="row border rounded pt-3 pb-3">
+		<div class="col-md-3 mb-5">
+			<div id="imgdeprofil">
+				<img src="http://www.aovc.org/wp-content/uploads/2015/10/photo-%C3%A0-venir-400x369.jpg" alt="" class="img-fluid">
+			</div>
+			
+			<div>
+				<div class="dropdown">
+				  <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Vos informations personnelles
+				  </button>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" href="{{ path('app_profil_index') }}">Afficher</a>
+					<a class="dropdown-item" href="{{ path('app_profil_updateme') }}">Modifier</a>
+				  </div>
+				</div>
+			</div>
+			
+			<div>
+				<button class="btn btn-link showmembers">Les membres</button>
+				<a class="btn btn-link" href="/profil/editmember">(Ajouter)</a>
+			</div>
+			
+			<div id="taitfile">
+				<button class="btn btn-link exportcontacts">Exporter vos contacts</button>
+				<div>
+					<button class="btn btn-link importcontacts">Importer vos contacts</button>
+					{{ form_start(form) }}
+						{{ form_row(form.mycsv) }}
+						<button type="submit" class="btn btn-primary btn-sm">Importer</button>
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9 infos">
+			<section id="infosperso">
+				<div >
+					Votre nom : {{ app.user.lastname }}
+				<div>
+				<div class="mt-3">
+					Votre prénom : {{ app.user.firstname }}
+				<div>
+				<div class="mt-3">
+					Votre email : {{ app.user.email }}
+				<div>
+				<div class="mt-3">
+					Votre adresse : {{ app.user.address }}
+				<div>
+				<div class="mt-3">
+					Votre téléphone : {{ app.user.phone }}
+				<div>
+			</section>
+			
+			<section id="infosmembres" class="d-none">
+				<h2 class="mt-3 text-center">Vos contacts</h2>
+				<table class="table">
+				  <thead class="thead-dark">
+					<tr>
+					  <th scope="col">
+							Nom&nbsp;&nbsp;
+						<i class="fas fa-arrow-up" data-champs="lastname" data-order="ASC"></i>&nbsp;&nbsp;
+						<i class="fas fa-arrow-down" data-champs="lastname" data-order="DESC"></i>
+					  </th>
+					  <th scope="col">
+						Prénom&nbsp;&nbsp;
+						<i class="fas fa-arrow-up" data-champs="firstname" data-order="ASC"></i>&nbsp;&nbsp;
+						<i class="fas fa-arrow-down" data-champs="firstname" data-order="DESC"></i>
+					  </th>
+					  <th scope="col">
+						Email&nbsp;&nbsp;
+						<i class="fas fa-arrow-up" data-champs="email" data-order="ASC"></i>&nbsp;&nbsp;
+						<i class="fas fa-arrow-down" data-champs="email" data-order="DESC"></i>
+					  </th>
+					  <th scope="col">
+						Adresse&nbsp;&nbsp;
+						<i class="fas fa-arrow-up" data-champs="address" data-order="ASC"></i>&nbsp;&nbsp;
+						<i class="fas fa-arrow-down" data-champs="address" data-order="DESC"></i>
+					  </th>
+					  <th scope="col">
+						Action
+					  </th>
+					</tr>
+				  </thead>
+				  <tbody>
+				  {% for member in app.user.members %}
+					<tr>
+					  <td>{{ member.lastname }}</td>
+					  <td>{{ member.firstname }}</td>
+					  <td>{{ member.email }}</td>
+					  <td>{{ member.address }}</td>
+					  <td>
+						<a class="btn btn-info btn-sm" href="{{ path('app_profil_editmember',{'id':member.id}) }}">Modifier</a>
+						<button class="btn btn-danger btn-sm delete-member" data-id="{{ member.id }}">Supprimer</button>
+					  </td>
+					</tr>
+					{% endfor %}
+				  </tbody>
+				</table>
+			</section>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

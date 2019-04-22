@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	
+	<div class="container mt-3">
+		<div class="row">
+			{% if app.user is null %}
+			<div class="col-12">
+				<h2 class="text-center">Inscription</h2>
+				{{ form_start(form) }}
+				{{ form_row(form.firstname) }}
+				{{ form_row(form.lastname) }}
+				{{ form_row(form.retape) }}
+				{{ form_row(form.email) }}
+				{{ form_row(form.address) }}
+				{{ form_row(form.phone) }}
+				<div class="">
+					<button type="submit" class="btn btn-primary">
+						Enregistrer
+					</button>
+				</div>
+				{{ form_end(form) }}
+			</div>
+			{% else %}
+			<div class="col-12 text-center">
+				<img src="https://www.coworking-marignane.com/wp-content/uploads/2018/12/carnet-adresse-osx.png" alt=""  class="img-fluid">
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	
+
+{% endblock %}

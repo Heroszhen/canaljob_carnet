@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h2 class="text-center mt-4">Modifier vos informations</h2>
+<div class="container mt-4">
+	<div class="row">
+		<div class="col-12">
+
+				{{ form_start(form) }}
+				{{ form_row(form.firstname) }}
+				{{ form_row(form.lastname) }}
+				{{ form_row(form.retape) }}
+				{{ form_row(form.email) }}
+				{{ form_row(form.address) }}
+				{{ form_row(form.phone) }}
+				<div class="">
+					<button type="submit" class="btn btn-primary">
+						Enregistrer
+					</button>
+				</div>
+				{{ form_end(form) }}
+			</div>
+	</div>
+</div>
+
+{% endblock %}

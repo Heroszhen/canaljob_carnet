@@ -1,0 +1,12 @@
+{% for member in members %}
+<tr>
+	<td>{{ member.lastname }}</td>
+	<td>{{ member.firstname }}</td>
+	<td>{{ member.email }}</td>
+	<td>{{ member.address }}</td>
+	<td>
+		<a class="btn btn-info btn-sm" href="{{ path('app_profil_editmember',{'id':member.id}) }}">Modifier</a>
+		<button class="btn btn-danger btn-sm delete-member" data-id="{{ member.id }}">Supprimer</button>
+	</td>
+</tr>
+{% endfor %}
